@@ -4,9 +4,7 @@ const App = SimpleStateInit(() => {
     return (`
       <div>
         <h2>Basket:</h2>
-        <!-- <ol> -->
         ${App.basket.render()}
-        <!-- </ol> -->
       </div>
 	`)
 })
