@@ -1,7 +1,5 @@
 'use strict';
 
-// Can we hinder that state is changed directly?
-
 // Init App!
 function SimpleStateInit(app_func) {
     console.log("render function should always take one initial argument 'state'");
