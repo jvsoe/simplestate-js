@@ -9,7 +9,7 @@ function SimpleStateInit(app_func) {
     
     app_func.state = {}
     app_func.bindToAppContainer = (app_container_id, render_now) => {
-        rnder_now = true ? render_now === undefined : render_now
+        render_now = true ? render_now === undefined : render_now
         app_func.app_container_id = app_container_id;
         app_func.render = () => {
             document.getElementById(app_func.app_container_id).innerHTML = app_func();
