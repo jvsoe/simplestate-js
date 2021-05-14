@@ -8,11 +8,14 @@ function SimpleStateInit(app_func) {
     }
     
     app_func.state = {}
-    app_func.bindAppToElementId = (app_container_id) => {
+    app_func.bindToAppContainer = (app_container_id, render_now) => {
         app_func.app_container_id = app_container_id;
         app_func.render = () => {
             document.getElementById(app_func.app_container_id).innerHTML = app_func();
             return document.getElementById(app_func.app_container_id).innerHTML;
+        }
+        if (render_now) {
+            app_func.render();
         }
     }
     app_func.AddComponent = (dictionary) => {

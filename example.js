@@ -52,4 +52,4 @@ App.AddComponent({
     }
 })
 
-App.bindAppToElementId("app")
+App.bindToAppContainer("app")
