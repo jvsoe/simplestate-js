@@ -68,7 +68,9 @@ function SimpleStateClass(simpleStateObject, app) {
                     simpleStateObject._renderedDOM = simpleStateObject.render("SMART", true, app[simpleStateObject.name].state);
                 }
             }
-            console.warn("Not an object: " + new_state);
+            else {
+                console.warn("Not an object: " + new_state);
+            }
         }
     })
 
