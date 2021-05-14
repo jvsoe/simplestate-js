@@ -24,6 +24,7 @@ function SimpleStateInit(app_func) {
         let component = SimpleStateClass(dictionary, app_func);
         app_func[dictionary.name] = component;
         app_func.state[dictionary.name] = initial_state;
+        return component;
     }
     app_func.AddComponent.parent = app_func;
     return app_func
@@ -72,11 +73,11 @@ function SimpleStateClass(simpleStateObject, app) {
         value: (new_state) => {
             console.log('set_state');
             if (new_state instanceof Object) {
-                let states_are_equal = simpleStateObject._states_are_equal(new_state, app[simpleStateObject.name].state);
+                let states_are_equal = simpleStateObject._states_are_equal(new_state, app.state[simpleStateObject.name]);
                 // simpleStateObject.state = new_state;
-                app[simpleStateObject.name].state = new_state;
+                app.state[simpleStateObject.name] = new_state;
                 if (!states_are_equal) {
-                    simpleStateObject._renderedDOM = simpleStateObject.render("SMART", true, app[simpleStateObject.name].state);
+                    simpleStateObject._renderedDOM = simpleStateObject.render("SMART", true, app.state[simpleStateObject.name]);
                 }
                 app.render();
             }
