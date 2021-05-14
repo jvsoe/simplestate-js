@@ -2,12 +2,19 @@
 
 // Init App!
 function SimpleStateInit(app_func) {
-    console.log("render function should always take one initial argument 'state'");
+    console.log("Initial function should always take the argument 'state'");
     if (!(app_func instanceof Function)) {
         console.error("First and only argument must be function that renders App.");
     }
+    
     app_func.state = {}
-    app_func.render = app_func
+    app_func.bindAppToElementId = (app_container_id) => {
+        app_func.app_container_id = app_container_id;
+        app_func.render = () => {
+            document.getElementById(app_func.app_container_id).innerHTML = app_func();
+            return document.getElementById(app_func.app_container_id).innerHTML;
+        }
+    }
     app_func.AddComponent = (dictionary) => {
         let initial_state = dictionary.state // Because .state is changed to a function inside SimpleStateClass
         let component = SimpleStateClass(dictionary, app_func);
@@ -67,6 +74,7 @@ function SimpleStateClass(simpleStateObject, app) {
                 if (!states_are_equal) {
                     simpleStateObject._renderedDOM = simpleStateObject.render("SMART", true, app[simpleStateObject.name].state);
                 }
+                app.render();
             }
             else {
                 console.warn("Not an object: " + new_state);

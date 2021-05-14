@@ -52,4 +52,4 @@ App.AddComponent({
     }
 })
 
-document.getElementById("app").innerHTML = App();
+App.bindAppToElementId("app")
