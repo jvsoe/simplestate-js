@@ -6,10 +6,14 @@ const App = SimpleStateInit(() => {
         <h2>Basket:</h2>
         ${App.basket.render()}
       </div>
+      </div>
+      <div class="nonsense">
+      ${App.basket.render_nonsense()}
+      </div>
 	`)
 })
 
-App.AddComponent({
+App.addComponent({
     name: 'basket',
     state: {
         messages: {
@@ -49,9 +53,19 @@ App.AddComponent({
                 </tr>
 
         `)
-    }
+    },
+  // Alternative way of adding render method
+  // render_other: () => {
+  //   return App.state.basket.messages[2].message;
+  // }
 })
 
-App.basket.define_render_func('render_nonsense', (state) => { return state.messages[1].message; })
+// Define function for rendering nonsense
+App.basket.defineRenderFunc('render_nonsense', (state) => { return state.messages[1].message; })
+
+// Another alternative way of adding render method
+// App.basket.render_other = () => {
+//   return App.state.basket.messages[2].message;
+// }
 
 App.bindToAppContainer("app")

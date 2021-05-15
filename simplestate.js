@@ -19,14 +19,14 @@ function SimpleStateInit(app_func) {
             app_func.render();
         }
     }
-    app_func.AddComponent = (dictionary) => {
+    app_func.addComponent = (dictionary) => {
         let initial_state = dictionary.state // Because .state is changed to a function inside SimpleStateClass
         let component = SimpleStateClass(dictionary, app_func);
         app_func[dictionary.name] = component;
         app_func.state[dictionary.name] = initial_state;
         return component;
     }
-    app_func.AddComponent.parent = app_func;
+    app_func.addComponent.parent = app_func;
     return app_func
 }
 
@@ -87,15 +87,16 @@ function SimpleStateClass(simpleStateObject, app) {
         }
     })
 
-    Object.defineProperty(simpleStateObject, 'define_render_func', {
+    Object.defineProperty(simpleStateObject, 'defineRenderFunc', {
         value: (func_name, render_func) => {
-            console.log('define_render_func');
+            console.log('defineRenderFunc');
             let func_name_is_string = (typeof func_name === 'string' || func_name instanceof String)
             if (!func_name_is_string || !func_name || !func_name.match(/^[\w_]+$/)) {
                 console.error("First argument must be a string and valid function name");
             }
             else if (render_func instanceof Function) {
-                app[simpleStateObject.name][func_name] = () => {
+                // app[simpleStateObject.name][func_name] = () => {
+                simpleStateObject[func_name] = () => {
                     console.log('app.state[simpleStateObject.name]', app.state[simpleStateObject.name])
                     return render_func(app.state[simpleStateObject.name]);
                 }
