@@ -52,4 +52,6 @@ App.AddComponent({
     }
 })
 
+App.basket.define_render_func('render_nonsense', (state) => { return state.messages[1].message; })
+
 App.bindToAppContainer("app")

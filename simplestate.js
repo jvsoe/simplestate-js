@@ -87,6 +87,25 @@ function SimpleStateClass(simpleStateObject, app) {
         }
     })
 
+    Object.defineProperty(simpleStateObject, 'define_render_func', {
+        value: (func_name, render_func) => {
+            console.log('define_render_func');
+            let func_name_is_string = (typeof func_name === 'string' || func_name instanceof String)
+            if (!func_name_is_string || !func_name || !func_name.match(/^[\w_]+$/)) {
+                console.error("First argument must be a string and valid function name");
+            }
+            else if (render_func instanceof Function) {
+                app[simpleStateObject.name][func_name] = () => {
+                    console.log('app.state[simpleStateObject.name]', app.state[simpleStateObject.name])
+                    return render_func(app.state[simpleStateObject.name]);
+                }
+            }
+            else {
+                console.error("Second argument must be a function returning a string with state object as only parameter: " + render_func);
+            }
+        }
+    })
+
 
     // Create empty property for rendererd DOM; redundant
     simpleStateObject._renderedDOM = '';
